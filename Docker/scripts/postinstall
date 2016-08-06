@@ -11,6 +11,8 @@ for tool in com.docker.frontend docker docker-compose docker-diagnose docker-mac
     ln -sf ${docker_bundle_dir}/Resources/${tool} /usr/local/bin
 done
 
+[[ ! -d /Library/PrivilegedHelperTools ]] && mkdir -p /Library/PrivilegedHelperTools
+
 install -m 0544 -o root -g wheel ${docker_bundle_dir}/Library/LaunchServices/com.docker.vmnetd /Library/PrivilegedHelperTools
 install -m 0644 -o root -g wheel ${docker_bundle_dir}/Resources/com.docker.vmnetd.plist /Library/LaunchDaemons
 
