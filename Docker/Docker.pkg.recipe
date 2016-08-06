@@ -46,15 +46,6 @@
             <key>Processor</key>
             <string>Copier</string>
         </dict>
-    <dict>
-      <key>Processor</key>
-      <string>com.github.homebysix.VersionSplitter/VersionSplitter</string>
-      <key>Arguments</key>
-      <dict>
-        <key>split_on</key>
-        <string>-</string>
-      </dict>
-    </dict>
         <dict>
             <key>Arguments</key>
             <dict>
@@ -81,6 +72,8 @@
                     <string>%RECIPE_CACHE_DIR%/%NAME%</string>
                     <key>version</key>
                     <string>%version%</string>
+                    <key>scripts</key>
+                    <string>scripts</string>
                 </dict>
             </dict>
             <key>Processor</key>

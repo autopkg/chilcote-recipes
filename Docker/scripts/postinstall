@@ -1,0 +1,17 @@
+#!/bin/sh
+
+# REF: https://forums.docker.com/t/feature-request-cli-tool-for-automated-installation/18334/4
+# assumes the following directories exist:
+# /usr/local/bin
+# /Library/PrivilegedHelperTools
+
+declare -r docker_bundle_dir=/Applications/Docker.app/Contents
+
+for tool in com.docker.frontend docker docker-compose docker-diagnose docker-machine notary; do
+    ln -sf ${docker_bundle_dir}/Resources/${tool} /usr/local/bin
+done
+
+install -m 0544 -o root -g wheel ${docker_bundle_dir}/Library/LaunchServices/com.docker.vmnetd /Library/PrivilegedHelperTools
+install -m 0644 -o root -g wheel ${docker_bundle_dir}/Resources/com.docker.vmnetd.plist /Library/LaunchDaemons
+
+launchctl load /Library/LaunchDaemons/com.docker.vmnetd.plist
