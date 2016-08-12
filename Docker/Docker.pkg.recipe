@@ -46,7 +46,16 @@
             <key>Processor</key>
             <string>Copier</string>
         </dict>
-        <dict>
+        <dict>     
+          <key>Processor</key>
+          <string>com.github.homebysix.VersionSplitter/VersionSplitter</string>
+          <key>Arguments</key>
+          <dict>
+            <key>split_on</key>
+            <string>-</string>
+          </dict>     
+        </dict>
+          <dict>
             <key>Arguments</key>
             <dict>
                 <key>pkg_request</key>
