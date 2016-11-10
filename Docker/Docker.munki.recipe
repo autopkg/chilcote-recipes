@@ -30,6 +30,50 @@
             <string>%NAME%</string>
             <key>unattended_install</key>
             <true/>
+            <key>postinstall_script</key>
+            <string><![CDATA[#!/bin/bash
+# Based on scripts/postinstall
+# which in turn is based on:
+# <https://forums.docker.com/t/feature-request-cli-tool-for-automated-installation/18334/4>
+# assumes the following directories exist:
+# /usr/local/bin
+# Will create:
+# /Library/PrivilegedHelperTools
+# if missing
+
+declare -r docker_bundle_dir=/Applications/Docker.app/Contents
+declare -r privtools=/Library/PrivilegedHelperTools
+
+for tool in docker docker-compose docker-diagnose docker-machine notary; do
+    /bin/ln -sf ${docker_bundle_dir}/Resources/bin/${tool} /usr/local/bin
+done
+
+[[ ! -d ${privtools} ]] && /bin/mkdir -p ${privtools} ; /bin/chmod 1755 ${privtools}
+
+/usr/bin/install -m 0544 -o root -g wheel ${docker_bundle_dir}/Library/LaunchServices/com.docker.vmnetd ${privtools}
+/usr/bin/install -m 0644 -o root -g wheel ${docker_bundle_dir}/Resources/com.docker.vmnetd.plist /Library/LaunchDaemons
+
+/bin/launchctl load /Library/LaunchDaemons/com.docker.vmnetd.plist
+            ]]></string>
+            <key>postuninstall_script</key>
+            <string><![CDATA[#!/bin/bash
+#
+# This script just reverses the postinstall operations
+#
+
+# Unload networking
+# (use -F to force this; there are probably better ways to do this
+# but this margin isn't big enough ...)
+/bin/launchctl unload -F /Library/LaunchDaemons/com.docker.vmnetd.plist
+
+rm -f /Library/LaunchDaemons/com.docker.vmnetd.plist
+rm -f /Library/PrivilegedHelperTools/com.docker.vmnetd
+rm -f /var/tmp/com.docker.vmnetd.socket
+
+for tool in docker docker-compose docker-diagnose docker-machine notary; do
+    rm -f /usr/local/bin/${tool}
+done
+            ]]></string>
         </dict>
     </dict>
     <key>MinimumVersion</key>
