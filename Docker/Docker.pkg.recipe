@@ -52,7 +52,7 @@
           <key>Arguments</key>
           <dict>
             <key>split_on</key>
-            <string> </string>
+            <string>-</string>
           </dict>     
         </dict>
           <dict>
