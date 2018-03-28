@@ -19,4 +19,8 @@ done
 
 [[ $3 != "/" ]] && exit 0
 
+VERSION=$(/usr/bin/defaults read /Applications/Docker.app/Contents/Info.plist VmnetdVersion)
+/usr/bin/defaults write /Library/LaunchDaemons/com.docker.vmnetd.plist Version -string ${VERSION}
+/usr/bin/plutil -convert xml1 /Library/LaunchDaemons/com.docker.vmnetd.plist
+/bin/chmod 0644 /Library/LaunchDaemons/com.docker.vmnetd.plist
 /bin/launchctl load /Library/LaunchDaemons/com.docker.vmnetd.plist
