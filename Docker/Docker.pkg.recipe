@@ -50,7 +50,7 @@
             <key>Arguments</key>
             <dict>
                 <key>find</key>
-                <string>-ce-mac</string>
+                <string>-mac</string>
                 <key>input_string</key>
                 <string>%version%</string>
                 <key>replace</key>
