@@ -52,6 +52,11 @@ done
 
 [[ ! -d ${privtools} ]] && /bin/mkdir -p ${privtools} ; /bin/chmod 1755 ${privtools}
 
+# unload com.docker.vmnetd if present
+if [[ -e /Library/LaunchDaemons/com.docker.vmnetd.plist ]] ; then
+    /bin/launchctl unload /Library/LaunchDaemons/com.docker.vmnetd.plist
+fi
+
 /usr/bin/install -m 0544 -o root -g wheel ${docker_bundle_dir}/Library/LaunchServices/com.docker.vmnetd ${privtools}
 /usr/bin/install -m 0644 -o root -g wheel ${docker_bundle_dir}/Resources/com.docker.vmnetd.plist /Library/LaunchDaemons
 
