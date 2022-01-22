@@ -20,6 +20,18 @@
     <key>Process</key>
     <array>
         <dict>
+            <key>Processor</key>
+            <string>DeprecationWarning</string>
+            <key>Arguments</key>
+            <dict>
+                <key>warning_message</key>
+                <string>This recipe is no longer maintained.
+                    See a current Docker repo here:
+                    https://github.com/autopkg/smithjw-recipes/tree/master/Docker
+                </string>
+            </dict>
+        </dict>
+        <dict>
             <key>Arguments</key>
             <dict>
                 <key>dmg_path</key>
